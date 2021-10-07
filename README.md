@@ -1,2 +1,2 @@
-# Click below to visit the website
-Website - https://srijit-mishra.github.io/Home.html
+# Click the below to visit the website
+https://srijit-mishra.github.io/Home.html
