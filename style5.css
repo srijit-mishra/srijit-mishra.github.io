@@ -8563,6 +8563,7 @@ ol {
   padding: 10px 30px;
   border-radius: 0;
   align-self: flex-start;
+  margin-left: 70px;
 }
 .u-btn:focus,
 .u-btn:active:focus,
@@ -40408,3 +40409,14 @@ html {
   align-content: center;
 }
 
+.l-1{
+  margin-left: 60px;
+}
+
+.l-2{
+  margin-left: 50px;
+}
+
+.l-3{
+  margin-left: 140px;
+}
