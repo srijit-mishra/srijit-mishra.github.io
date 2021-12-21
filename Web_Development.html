@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>convForm - example</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="dist/jquery.convform.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+</head>
+<body>
+	<section id="demo">
+	    <div class="vertical-align">
+	        <div class="container">
+	            <div class="row">
+	                <div class="col-sm-6 col-sm-offset-3 col-xs-offset-0">
+	                    <div class="card no-border">
+	                        <div id="chat" class="conv-form-wrapper">
+	                            <form action="" method="GET" class="hidden">
+	                                <select data-conv-question="Hello! I'm RJ45, Are you ready for the test? " name="first-question">
+	                                    <option value="yes">Yes</option>
+	                                    <option value="sure">Sure!</option>
+	                                </select>
+	                                <!-- Question 1 -->
+	                                <select name="multi[]" data-conv-question="Q1. Which of the following softwares could be used to build a website" multiple>
+	                                    <option value="Power Point">Power Point</option>
+	                                    <option value="Excel">Excel</option>
+	                                    <option value="Dream Weaver">Dream Weaver</option>
+	                                    <option value="ERP">ERP</option>
+                                        <!-- Answer is c -->
+	                                </select>
+                                    <!-- Question 2 -->
+                                    <input type="text" data-conv-question="Q2. What is a CMS in web design" name="Q2" required placeholder="Enter your answer" >
+                                     <!-- Answer Content Management System -->
+
+                                     <!-- Question 3-->
+                                     <select name="multi[]" data-conv-question="Q3. Which of the following is not a CMS" multiple>
+	                                    <option value="WordPress">WordPress</option>
+	                                    <option value="Drupal">Drupal</option>
+	                                    <option value="Magneto">Magneto</option>
+	                                    <option value="SAP">SAP</option>
+                                        <!-- Answer is d -->
+	                                </select>>
+
+                                     
+
+                                     <!-- Question 4-->
+                                     <input type="text" data-conv-question="Q4. What does CSS stand for" name="Q4" required placeholder="Q4" >
+                                     <!-- Answer Cascading Style Sheets -->
+
+                                     <!-- Question 5-->
+                                     <select name="multi[]" data-conv-question="Q5. To make your website mobile friendly, you can make your website" multiple>
+	                                    <option value="Responsive">Responsive</option>
+	                                    <option value="Reactive">Reactive</option>
+	                                    <option value="Fast Loading">Fast Loading</option>
+	                                    <option value="Light">Light</option>
+                                        <!-- Answer is a -->
+	                                 </select>>
+
+                                     <select data-conv-question="These are all the question. Your test is finished.">
+                                        <option value="google" data-callback="google">Home</option>
+                                        <option value="bing" data-callback="bing">Report</option>
+                                    </select>
+	                            </form>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+	<script type="text/javascript" src="jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="dist/autosize.min.js"></script>
+	<script type="text/javascript" src="dist/jquery.convform.js"></script>
+
+	<script>
+		function google(stateWrapper, ready) {
+			window.open("Home.html");
+			ready();
+		}
+		function bing(stateWrapper, ready) {
+			window.open("Home2.html");
+			ready();
+		}
+		var rollbackTo = false;
+		var originalState = false;
+		function storeState(stateWrapper, ready) {
+			rollbackTo = stateWrapper.current;
+			console.log("storeState called: ",rollbackTo);
+			ready();
+		}
+		function rollback(stateWrapper, ready) {
+			console.log("rollback called: ", rollbackTo, originalState);
+			console.log("answers at the time of user input: ", stateWrapper.answers);
+			if(rollbackTo!=false) {
+				if(originalState==false) {
+					originalState = stateWrapper.current.next;
+						console.log('stored original state');
+				}
+				stateWrapper.current.next = rollbackTo;
+				console.log('changed current.next to rollbackTo');
+			}
+			ready();
+		}
+		function restore(stateWrapper, ready) {
+			if(originalState != false) {
+				stateWrapper.current.next = originalState;
+				console.log('changed current.next to originalState');
+			}
+			ready();
+		}
+	</script>
+	<script>
+		jQuery(function($){
+			convForm = $('#chat').convform({selectInputStyle: 'disable'});
+			console.log(convForm);
+		});
+	</script>
+</body>
+</html>
